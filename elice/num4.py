@@ -1,20 +1,22 @@
+# case 7까지만 정답, 이후는 시간초과
+import sys
 def main():
-    emp = int(input())
-    house = list(map(int, input().split()))
+    emp = int(sys.stdin.readline())
+    house = list(map(int, sys.stdin.readline().split()))
     officeDic = {}
-    count = 0
-    for office in range(max(house)):
+    minDis = emp*max(house)
+    minList = []
+    for office in range(min(house), max(house)+1):
         distanceSum = 0
         for employee in house:
             distanceSum += abs(employee-office)
         officeDic[office] = distanceSum
-    print(min(officeDic.values()))
-    for officeSpot, distance in enumerate(officeDic):
-        print(officeSpot, distance)
-        if distance == min(officeDic.values()):
-            count +=1
-    
-    print(count)
+        if minDis>distanceSum:
+            minDis = distanceSum
+            minList = [office]
+        elif minDis==distanceSum:
+            minList.append(office)
+    print(len(minList))
 
 if __name__=="__main__":
     main()
