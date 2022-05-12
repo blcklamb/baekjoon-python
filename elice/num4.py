@@ -1,22 +1,23 @@
-# case 7까지만 정답, 이후는 시간초과
+# 시간초과 45/100
+# 이진탐색으로 헤보려다가 로직 꼬여서 포기
+# 아래는 정답 코드가 아님
 import sys
 def main():
     emp = int(sys.stdin.readline())
     house = list(map(int, sys.stdin.readline().split()))
-    officeDic = {}
     minDis = emp*max(house)
-    minList = []
-    for office in range(min(house), max(house)+1):
+    start = min(house)
+    end = max(house)
+    while True:
+        if start == end:
+            break
+        mid = (start+end)//2
         distanceSum = 0
         for employee in house:
-            distanceSum += abs(employee-office)
-        officeDic[office] = distanceSum
-        if minDis>distanceSum:
+            distanceSum += abs(employee-mid)
+        if distanceSum < minDis:
             minDis = distanceSum
-            minList = [office]
-        elif minDis==distanceSum:
-            minList.append(office)
-    print(len(minList))
+
 
 if __name__=="__main__":
     main()
